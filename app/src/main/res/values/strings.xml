@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Interview</string>
+    <string name="order_header">Order: </string>
+    <string name="order_details_name">#%s</string>
+    <string name="order_details_item_count">Item count: %d</string>
+    <string name="order_details_total">Total: $%.2f</string>
+    <string name="order_item_price">Price: $%.2f</string>
+</resources>

@@ -1,0 +1,106 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.spoton.interview"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental"   : "true"
+                ]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
+
+    //junit
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${Versions.junit5}"
+    testImplementation "androidx.test:core:${Versions.runner}"
+
+    //junit instrumented
+    androidTestImplementation "androidx.test:core:${Versions.runner}"
+    androidTestImplementation "androidx.test:runner:${Versions.runner}"
+    androidTestImplementation "androidx.test:rules:${Versions.runner}"
+    androidTestImplementation "androidx.test.ext:junit:${Versions.androidJunit}"
+    androidTestUtil "androidx.test:orchestrator:${Versions.orchestrator}"
+    androidTestImplementation "androidx.arch.core:core-testing:${Versions.archCoreTesting}"
+
+    //logging
+    implementation "com.jakewharton.timber:timber:${Versions.timber}"
+
+    //DI
+    implementation "io.insert-koin:koin-core:${Versions.koin}"
+    implementation "io.insert-koin:koin-android:${Versions.koin}"
+    testImplementation "io.insert-koin:koin-test:${Versions.koin}"
+
+    //UI
+    implementation "androidx.appcompat:appcompat:${Versions.appcompat}"
+    implementation "androidx.fragment:fragment:${Versions.fragment}"
+    implementation "androidx.fragment:fragment-ktx:${Versions.fragment}"
+    implementation "androidx.activity:activity:${Versions.activity}"
+    implementation "androidx.activity:activity-ktx:${Versions.activity}"
+    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    implementation "com.google.android.material:material:${Versions.materialComponents}"
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+
+    // Kotlin test
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+
+    //database
+    implementation "androidx.room:room-runtime:${Versions.room}"
+    implementation "androidx.room:room-ktx:${Versions.room}"
+    kapt "androidx.room:room-compiler:${Versions.room}"
+    androidTestImplementation "androidx.room:room-testing:${Versions.room}"
+}
